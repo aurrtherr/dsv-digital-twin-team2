@@ -7,8 +7,8 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 ## Working on this as a team
 
 - **`WORK_SPLIT.md`**: the list of features and improvements. Put your name next to the ones you take.
-- **`CLAUDE.md` / `AGENTS.md`**: rules your AI assistant reads automatically (which files to touch, data rules, tests to run). The two files are identical, so keep them the same.
-- Work on your own branch (`<name>/<topic>`) and merge through a pull request. The automatic check (`.github/workflows/check.yml`) runs the backend tests and the frontend build on every pull request; merge only when it is green.
+- **`AGENTS.md`**: rules your AI assistant reads automatically (which files to touch, data rules, tests to run).
+- Work on your own branch (`<name>/<topic>`) and merge through a pull request. Before merging, run the backend tests and the frontend build yourself (see *Running the app*). An automatic check on pull requests is still to do (F16).
 
 ## What's in this repo
 
@@ -16,7 +16,7 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 |---|---|
 | `backend/` | **The app's Python backend** (FastAPI): loads DSV's reports, replays the week, runs the rules, projections and staffing what-if, and keeps shared tasks. See `backend/README.md`. |
 | `frontend/` | **The app's React + TypeScript frontend** (Vite): the 11 screens, calling the backend. See `frontend/README.md`. |
-| `prototype/twin.html` | The original single-file prototype (12 Nov 2026), kept as the reference the app was ported from. Open it in a browser, no install needed. |
+| `prototype_archive/twin.html` | The original single-file prototype (12 Nov 2026), kept as the reference the app was ported from. Open it in a browser, no install needed. |
 | `notebooks/Feasure_Final.ipynb` | The data team's analysis notebook, as handed over (16 Nov). |
 | `notebooks/Feasure_Final_review_16Nov.ipynb` | Review copy of the same notebook. Marks what is already in the prototype, what is not yet, and the code fixes (search the code for `REVIEW 16 Nov`). |
 | `notebooks/DSV_Digital_Twin_Core.ipynb` | Earlier core analysis notebook (5 Nov), with self-checks and tidy-table exports. |
@@ -25,6 +25,7 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 | `docs/analysis/` | Block-by-block explanation of the early analysis, and the DSV strategy check with sources. |
 | `docs/course/` | Course materials copied into the team doc: DSV brief, course addendum (7 Nov), midterm guideline. |
 | `docs/archive/` | Midterm Q&A prep. |
+| `.github/workflows/pages.yml`, `render.yaml` | Online demo: frontend build for GitHub Pages and backend setup for Render (see *Online demo*). |
 | `data/` | Empty. Put the DSV Excel files here (they are not committed, see below). |
 
 Some design and analysis docs were written before DSV's 11 Nov answers; each one has a note at the top saying what has changed since.
@@ -47,15 +48,37 @@ npm run dev
 
 Open http://localhost:5173. The API docs are at http://localhost:8000/docs.
 
+To check your changes before a pull request:
+
+```bash
+cd backend && python -m pytest -q   # plain `pytest` cannot find the app package
+cd frontend && npm run build
+```
+
 How the work is split:
 - **Backend (Python):** every calculation. That covers the data build from the Excel files, the replay snapshot at any hour, all 22 rules (IN, OUT, DQ, MGR), the Prevent cards, projections, task checks, KPIs, the what-if, and the shared state (tasks, decisions, limits). Each screen has its own file in `backend/app/screens/` (for example `inbound.py`), matching `frontend/src/views/Inbound.tsx`.
 - **Frontend (TSX):** layout and interaction only. That covers the screens, charts, header timeline, dialogs, role switch, dark mode and the replay controls.
 
-The port was checked against `prototype/twin.html`:
+The port was checked against `prototype_archive/twin.html`:
 - the backend's data build reproduces the prototype's embedded data exactly from DSV's raw Excel files;
 - the rule cards match the original JavaScript at 119 sampled moments in the week;
 - KPI values and projections also match;
 - in a browser, the screens render the same as the original (same page height and visible text) for all 25 role and screen combinations checked.
+
+## Online demo
+
+For the team to check progress: **https://aurrtherr.github.io/dsv-digital-twin-team2/**
+
+- **Frontend** is on GitHub Pages. `.github/workflows/pages.yml` builds `frontend/` and publishes it every time something is merged into `main`, so the link always shows the latest `main`.
+- **Backend** is on Render's free plan, set up from `render.yaml`. GitHub Pages can only host static files, so the Python backend has to run somewhere else. The frontend finds it through the repo variable `VITE_API_BASE` (Settings → Secrets and variables → Actions → Variables).
+- The free backend goes to sleep after about 15 minutes with no use. The first load after that takes about a minute, so open the link early before a demo.
+- Tasks, approvals and limits changed on the online demo are shared by everyone using it, and reset when the backend is redeployed.
+
+One-time setup (only the repo owner needs to do this):
+1. On render.com: New → Blueprint → this repo. Copy the service URL.
+2. On GitHub: add the repo variable `VITE_API_BASE` = that URL, with no slash at the end.
+3. On GitHub: Settings → Pages → Source → **GitHub Actions**.
+4. Merge anything into `main`, or run the workflow by hand from the Actions tab.
 
 ## Running the notebooks
 
@@ -81,7 +104,7 @@ The port was checked against `prototype/twin.html`:
 
 The DSV reports are pre-anonymised and need no NDA, but they are client data shared for this course. Keep this repository **private** and add only team members, the professor and the TA. `.gitignore` keeps `*.xlsx` files out of commits.
 
-`prototype/twin.html`, `backend/app/data/twin_data.json` and the notebook outputs contain values from the data, which is one more reason to keep the repo private.
+`prototype_archive/twin.html`, `backend/app/data/twin_data.json` and the notebook outputs contain values from the data, which is one more reason to keep the repo private.
 
 ## Team
 
