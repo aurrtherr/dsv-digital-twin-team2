@@ -1,0 +1,33 @@
+# DSV source data: keep out of the repo
+*.xlsx
+*.xls
+*.csv
+data/*
+!data/README.md
+
+# Notebook outputs folder (exported tables)
+outputs/
+notebooks/outputs/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+~$*
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Backend shared demo state (tasks, decisions); created when the backend runs
+backend/state.json
+backend/state.tmp
+.pytest_cache/
