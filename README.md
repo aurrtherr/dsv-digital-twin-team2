@@ -13,7 +13,6 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 | `prototype/twin.html` | The original single-file prototype (12 Nov 2026), kept as the reference the app was ported from. Open it in a browser, no install needed. |
 | `notebooks/Feasure_Final.ipynb` | The data team's analysis notebook, as handed over (16 Nov). |
 | `notebooks/Feasure_Final_review_16Nov.ipynb` | Review copy of the same notebook. Marks what is already in the prototype, what is not yet, and the code fixes (search the code for `REVIEW 16 Nov`). |
-| `notebooks/DSV_Digital_Twin_Core.ipynb` | Earlier core analysis notebook (5 Nov), with self-checks and tidy-table exports. |
 | `docs/team-doc/` | The team Google Doc, exported tab by tab on 23 Nov 2026: checklist, meeting notes, data handover pointers, DSV Q&A log, assumption log, strategy alignment, midterm feedback. **The Google Doc is the master copy.** |
 | `docs/design/` | Detailed design (concept, architecture, journeys, interactions), the rule catalogue, and the slide design system. |
 | `docs/analysis/` | Block-by-block explanation of the early analysis, and the DSV strategy check with sources. |
