@@ -1,4 +1,4 @@
-// Shapes of the JSON the Python backend returns (see backend/app/views.py).
+// Shapes of the JSON the Python backend returns (see backend/app/screens/).
 
 export type Rich = [string, boolean][];
 export type Tag = [string, string]; // [css class, text]

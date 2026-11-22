@@ -4,6 +4,12 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 
 > This is a course prototype on one week of anonymised data. It is not a live system and not a forecast.
 
+## Working on this as a team
+
+- **`WORK_SPLIT.md`**: the list of features and improvements. Put your name next to the ones you take.
+- **`CLAUDE.md` / `AGENTS.md`**: rules your AI assistant reads automatically (which files to touch, data rules, tests to run). The two files are identical, so keep them the same.
+- Work on your own branch (`<name>/<topic>`) and merge through a pull request. The automatic check (`.github/workflows/check.yml`) runs the backend tests and the frontend build on every pull request; merge only when it is green.
+
 ## What's in this repo
 
 | Folder | What it holds |
@@ -13,6 +19,7 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 | `prototype/twin.html` | The original single-file prototype (12 Nov 2026), kept as the reference the app was ported from. Open it in a browser, no install needed. |
 | `notebooks/Feasure_Final.ipynb` | The data team's analysis notebook, as handed over (16 Nov). |
 | `notebooks/Feasure_Final_review_16Nov.ipynb` | Review copy of the same notebook. Marks what is already in the prototype, what is not yet, and the code fixes (search the code for `REVIEW 16 Nov`). |
+| `notebooks/DSV_Digital_Twin_Core.ipynb` | Earlier core analysis notebook (5 Nov), with self-checks and tidy-table exports. |
 | `docs/team-doc/` | The team Google Doc, exported tab by tab on 23 Nov 2026: checklist, meeting notes, data handover pointers, DSV Q&A log, assumption log, strategy alignment, midterm feedback. **The Google Doc is the master copy.** |
 | `docs/design/` | Detailed design (concept, architecture, journeys, interactions), the rule catalogue, and the slide design system. |
 | `docs/analysis/` | Block-by-block explanation of the early analysis, and the DSV strategy check with sources. |
@@ -41,7 +48,7 @@ npm run dev
 Open http://localhost:5173. The API docs are at http://localhost:8000/docs.
 
 How the work is split:
-- **Backend (Python):** every calculation. That covers the data build from the Excel files, the replay snapshot at any hour, all 22 rules (IN, OUT, DQ, MGR), the Prevent cards, projections, task checks, KPIs, the what-if, and the shared state (tasks, decisions, limits).
+- **Backend (Python):** every calculation. That covers the data build from the Excel files, the replay snapshot at any hour, all 22 rules (IN, OUT, DQ, MGR), the Prevent cards, projections, task checks, KPIs, the what-if, and the shared state (tasks, decisions, limits). Each screen has its own file in `backend/app/screens/` (for example `inbound.py`), matching `frontend/src/views/Inbound.tsx`.
 - **Frontend (TSX):** layout and interaction only. That covers the screens, charts, header timeline, dialogs, role switch, dark mode and the replay controls.
 
 The port was checked against `prototype/twin.html`:

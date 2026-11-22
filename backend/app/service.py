@@ -12,7 +12,7 @@ from .dataset import T0, T1, get_dataset
 from .engine import ASSIGN, ROLES, Ctx, all_cards, rules, same_before, snapshot, task_status, todo
 from .fmt import day_label, day_of, fmt, hhmm, when
 from .state import CFG_DEF, CFG_META, get_store, new_id
-from .views import (TL_NEXT, TL_PAST, VIEWS, asn_detail, lookup, order_detail, timeline, tl_window, whatif)
+from .screens import (TL_NEXT, TL_PAST, VIEWS, asn_detail, lookup, order_detail, timeline, tl_window, whatif)
 
 NAV_GROUPS = [
     ["home", "Home", ["shift", "atrisk", "tasks"]],

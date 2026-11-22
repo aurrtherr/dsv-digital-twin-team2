@@ -37,7 +37,7 @@ Data rules applied (same as the notebooks): inbound Dock and GR times +8 h; inbo
 | `app/build_data.py` | Excel reports → `twin_data.json` (orders, ASNs, Milkrun cartons, day totals, data-quality counts, line details) |
 | `app/dataset.py` | Loads the data once into numpy arrays |
 | `app/engine.py` | The calculations: snapshot at time t, the 22 rules (IN, OUT, DQ, MGR), "Prevent" cards, projections, task checks, KPIs |
-| `app/views.py` | One function per screen: turns engine results into the JSON each React screen needs |
+| `app/screens/` | One file per screen (`shift.py`, `outbound.py`, `inbound.py`, …): turns engine results into the JSON that screen needs. `common.py` holds the shared building blocks, `timeline.py` the header timeline, `details.py` the order/ASN dialogs and lookup. `__init__.py` lists the screens in `VIEWS`. |
 | `app/service.py` | Request handling and actions (approve, dismiss, propose, tick, new task, limits, undo), independent of the web framework |
 | `app/main.py` | FastAPI routes |
 | `app/dev_server.py` | Same routes with the standard library only |
