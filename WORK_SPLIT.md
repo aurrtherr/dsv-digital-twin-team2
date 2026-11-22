@@ -37,18 +37,20 @@ F14 is used by every screen, so its person reviews any change to those files.
 
 Status: *To do*, *Doing*, *Done*, *Waiting for DSV* (cannot finish until DSV answers that Round 2 question), *Decide first* (the team needs to agree whether to build it).
 
+"Review notebook" means `notebooks/Feasure_Final_review_16Nov.ipynb`; § numbers are its section headings.
+
 | # | Improvement | Feature | Where it comes from | Person | Status |
 |---|---|---|---|---|---|
-| I1 | Hourly receiving-queue chart (ASNs docked, not yet received, hour by hour) | F5 | Review notebook, 🟨 section | | To do |
-| I2 | Count "lines per ASN" on the 3-part key (ASN# + Ref Line# + Functional Packing), not Ref Line# alone | F14, F5 | Review notebook, `NOT CHANGED, TO DO` | | To do |
-| I3 | Build rule DQ-04 "Contents mismatch" from the Milkrun content check (99.1% of 3,242 linked orders reconcile, 28 do not) | F14, F9, F10 | Review notebook, 🟨 section | | Decide first |
-| I4 | Stage timing: median and P90 for dock → receipt → order → handover | F7 | Review notebook, 🟨 section | | To do |
-| I5 | Hourly event activity chart and a 3-hour "recent events" list | F1 or F3 | Review notebook, 🟨 section | | Decide first |
-| I6 | Switch between lateness definitions A–D (23.4%, 4.1%, 58.5%, 21.5%) | F7, F11 | Review notebook; DSV Round 2 Q1 | | Waiting for DSV |
-| I7 | Forwarder × country matrix of overdue orders | F4 or F7 | Review notebook, 🟨 section | | To do |
-| I8 | Earlier-handover what-if next to the staffing what-if | F8 | Review notebook, 🟨 section | | Decide first |
-| I9 | Show a SKU + lot match as a clearly labelled "possible link" for non-Milkrun flows (never as an exact trace) | F6 | Review notebook, 🟨 section | | Decide first |
-| I10 | Shipped-quantity totals, counting Qty Shipped once per order line | F4 | Review notebook; Issue 1 (currently option D: no units total); DSV Round 2 Q5 | | Waiting for DSV |
+| I1 | Hourly receiving-queue chart (ASNs docked, not yet received, hour by hour) | F5 | Review notebook §2.3 *Receiving work: dock states, waiting time and P90* (already works there: tick "Show hourly receiving queue trend (24h)"; not in the app yet) | | To do |
+| I2 | Count "lines per ASN" on the 3-part key (ASN# + Ref Line# + Functional Packing), not Ref Line# alone | F14, F5 | Review notebook §2.3 ("ASN lines" column still counts Ref Line# only, see the 🟨 note) and §2 setup code (`NOT CHANGED, TO DO`) | | To do |
+| I3 | Build rule DQ-04 "Contents mismatch" from the Milkrun content check (99.1% of 3,242 linked orders reconcile, 28 do not) | F14, F9, F10 | Review notebook §7.1 *Milk run quantity reconciliation by SKU and lot* | | Decide first |
+| I4 | Stage timing: median and P90 for dock → receipt → order → handover | F7 | Review notebook §3.1 *Elapsed process timing for linked milk run units* | | To do |
+| I5 | Hourly event activity chart and a 3-hour "recent events" list | F1 or F3 | Review notebook §4 *Event activity and recent history* | | Decide first |
+| I6 | Switch between lateness definitions A–D (23.4%, 4.1%, 58.5%, 21.5%) | F7, F11 | Review notebook §6 *Handover performance and group analysis*; DSV Round 2 Q1 | | Waiting for DSV |
+| I7 | Forwarder × country matrix of overdue orders | F4 or F7 | Review notebook §6 *Handover performance and group analysis* | | To do |
+| I8 | Earlier-handover what-if next to the staffing what-if | F8 | Review notebook §9 *Historical what-if: earlier handover and readiness* | | Decide first |
+| I9 | Show a SKU + lot match as a clearly labelled "possible link" for non-Milkrun flows (never as an exact trace) | F6 | Review notebook §5.1 *Optional experiment: suggesting an ASN from SKU, lot and receipt time* | | Decide first |
+| I10 | Shipped-quantity totals, counting Qty Shipped once per order line | F4 | Review notebook §2.1 *Outbound shipping activity and outstanding work*; Issue 1 (currently option D: no units total); DSV Round 2 Q5 | | Waiting for DSV |
 | I11 | Capacity what-if: change in the share of receipts to non-AS zones (HBS + SEQ) → location capacity needed | F8 | DSV B9 (their first suggested what-if) | | To do |
 | I12 | Use DSV's required shipment timing and forwarder cut-offs in OUT-02, OUT-03 and the "past planned day" logic | F14, F11 | DSV Round 2 Q1, Q2 | | Waiting for DSV |
 | I13 | Use DSV's work per person and cost per extra person as the what-if baseline | F8 | DSV Round 2 Q3, Q4 | | Waiting for DSV |

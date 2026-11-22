@@ -10,6 +10,71 @@ A student design and prototype for DSV: a historical "digital twin" of one week 
 - **`AGENTS.md`**: rules your AI assistant reads automatically (which files to touch, data rules, tests to run).
 - Work on your own branch (`<name>/<topic>`) and merge through a pull request. Before merging, run the backend tests and the frontend build yourself (see *Running the app*). An automatic check on pull requests is still to do (F16).
 
+## New to the repo? Start here
+
+Use `git clone`, not `git init` (`git init` makes a new empty repo). You need Git, Python 3.10+ and Node.js 18+.
+
+**1. One-time setup**
+
+```bash
+# Copy the repo to your computer
+git clone https://github.com/aurrtherr/dsv-digital-twin-team2.git
+cd dsv-digital-twin-team2
+
+# Tell git who you are (once per computer)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# Install the backend
+cd backend
+pip install -r requirements.txt
+cd ..
+
+# Install the frontend
+cd frontend
+npm install
+cd ..
+```
+
+Before your first push, ask the repo owner to add you as a collaborator (Settings → Collaborators). Anyone can clone the repo, but only collaborators can push.
+
+You do not need the Excel files: `backend/app/data/twin_data.json` is already in the repo.
+
+**2. Run the app on your computer** (two terminals)
+
+```bash
+# Terminal 1: backend
+cd backend
+uvicorn app.main:app --reload --port 8000
+
+# Terminal 2: frontend
+cd frontend
+npm run dev
+```
+
+Then open http://localhost:5173.
+
+**3. Every time you work on something**
+
+```bash
+git checkout main
+git pull                                   # get the latest main
+git checkout -b yourname/topic             # e.g. alicia/inbound-chart
+
+# ... make your changes ...
+
+cd backend && python -m pytest -q && cd ..   # tests must pass
+cd frontend && npm run build && cd ..        # build must pass
+
+git add <the files you changed>
+git commit -m "F5: add hourly receiving-queue chart"
+git push -u origin yourname/topic
+```
+
+Open the link that `git push` prints and create a pull request on GitHub. When it is merged into `main`, the online demo updates by itself.
+
+Pick your feature in `WORK_SPLIT.md` first, and only change the files listed for it. If you use an AI assistant, it follows `AGENTS.md`.
+
 ## What's in this repo
 
 | Folder | What it holds |
