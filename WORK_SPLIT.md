@@ -57,7 +57,7 @@ Status: *To do*, *Doing*, *Done*, *Waiting for DSV* (cannot finish until DSV ans
 | I16 | Update the identical-rows check for the 148 outbound identical rows once DSV says whether they are real | F9 | DSV Round 2 Q6 | | Waiting for DSV |
 | I17 | Handle Urgent Flag and blank Shipment Ref the way DSV confirms | F9 | DSV Round 2 Q13, Q14 | | Waiting for DSV |
 | I18 | Run the app from a fresh clone (`npm install`, `uvicorn`) and fix any install or type errors | F16 | Not yet tested with a real install | | To do |
-| I19 | Put the demo online for the final presentation (GitHub Pages can only host `prototype/twin.html`; the split app needs a Python host) | F16 | Team decision; check data privacy with Prof. Xu | | Decide first |
+| I19 | Put the demo online (frontend on GitHub Pages via `.github/workflows/pages.yml`, backend on Render via `render.yaml`) | F16 | Team decision; check data privacy with Prof. Xu | aurrtherr | Doing |
 | I20 | Match the screens to the Figma design: spacing, colours, wording | F15 | W10 Figma prototype | | To do |
 
 Add new rows at the bottom with the next number (I21, I22, …) and the feature they belong to.
