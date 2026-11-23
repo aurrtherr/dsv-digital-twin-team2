@@ -48,12 +48,12 @@ Status: *To do*, *Doing*, *Done*, *Waiting for DSV* (cannot finish until DSV ans
 | I5 | Hourly event activity chart and a 3-hour "recent events" list | F1 or F3 | Review notebook §4 *Event activity and recent history* | | Decide first |
 | I6 | Switch between lateness definitions A–D (23.4%, 4.1%, 58.5%, 21.5%) | F7, F11 | Review notebook §6 *Handover performance and group analysis*; DSV Round 2 Q1 | | Waiting for DSV |
 | I7 | Forwarder × country matrix of overdue orders | F4 or F7 | Review notebook §6 *Handover performance and group analysis* | | To do |
-| I8 | Earlier-handover what-if next to the staffing what-if | F8 | Review notebook §9 *Historical what-if: earlier handover and readiness* | | Decide first |
+| I8 | Earlier-handover what-if next to the staffing what-if | F8 | Review notebook §9 *Historical what-if: earlier handover and readiness* |Ming Kai | Decide first |
 | I9 | Show a SKU + lot match as a clearly labelled "possible link" for non-Milkrun flows (never as an exact trace) | F6 | Review notebook §5.1 *Optional experiment: suggesting an ASN from SKU, lot and receipt time* | | Decide first |
 | I10 | Shipped-quantity totals, counting Qty Shipped once per order line | F4 | Review notebook §2.1 *Outbound shipping activity and outstanding work*; Issue 1 (currently option D: no units total); DSV Round 2 Q5 | | Waiting for DSV |
-| I11 | Capacity what-if: change in the share of receipts to non-AS zones (HBS + SEQ) → location capacity needed | F8 | DSV B9 (their first suggested what-if) | | To do |
+| I11 | Capacity what-if: change in the share of receipts to non-AS zones (HBS + SEQ) → location capacity needed | F8 | DSV B9 (their first suggested what-if) |Ming Kai | To do |
 | I12 | Use DSV's required shipment timing and forwarder cut-offs in OUT-02, OUT-03 and the "past planned day" logic | F14, F11 | DSV Round 2 Q1, Q2 | | Waiting for DSV |
-| I13 | Use DSV's work per person and cost per extra person as the what-if baseline | F8 | DSV Round 2 Q3, Q4 | | Waiting for DSV |
+| I13 | Use DSV's work per person and cost per extra person as the what-if baseline | F8 | DSV Round 2 Q3, Q4 |Ming Kai | Waiting for DSV |
 | I14 | Set default limits and rule owners from DSV's answers on alert thresholds and who acts | F11, F14 | DSV Round 2 Q7, Q8, Q9 | | Waiting for DSV |
 | I15 | Order the cards by DSV's priority when several issues happen at once | F1, F14 | DSV Round 2 Q10 | | Waiting for DSV |
 | I16 | Update the identical-rows check for the 148 outbound identical rows once DSV says whether they are real | F9 | DSV Round 2 Q6 | | Waiting for DSV |
