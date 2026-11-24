@@ -163,6 +163,25 @@ One-time setup (only the repo owner needs to do this):
 3. On GitHub: Settings → Pages → Source → **GitHub Actions**.
 4. Merge anything into `main`, or run the workflow by hand from the Actions tab.
 
+### Updating the online demo
+
+The online demo always shows what is on `main`. To update it, get your change merged into `main`; there is nothing else to deploy.
+
+1. Push your branch and open a pull request (see *New to the repo? Start here*).
+2. Merge the pull request into `main`.
+3. Both halves update by themselves:
+   - **Frontend:** GitHub Actions rebuilds it. Watch the **Actions** tab: when "Deploy frontend to GitHub Pages" turns green (about 2 minutes), the site is updated.
+   - **Backend:** Render sees the new commit on `main` and redeploys it (about 2–5 minutes). Progress is on the Render dashboard → `dsv-twin-api` → **Events**.
+4. Open the demo link and hard-refresh (**Cmd + Shift + R** on Mac, **Ctrl + Shift + R** on Windows) so your browser does not show the old version.
+
+If it did not update:
+- **Actions run is red:** open it to see the error. It is usually a TypeScript error, so run `cd frontend && npm run build` locally, fix it, and merge the fix.
+- **Frontend to redeploy without a new commit:** Actions tab → **Deploy frontend to GitHub Pages** → **Run workflow** → branch `main`.
+- **Backend to redeploy by hand** (only the repo owner can do this): Render dashboard → `dsv-twin-api` → **Manual Deploy** → **Deploy latest commit**.
+- **Backend URL changed:** update the repo variable `VITE_API_BASE`, then run the frontend workflow again.
+
+Redeploying the backend clears tasks, approvals and limit changes made on the online demo.
+
 ## Running the notebooks
 
 1. Put the DSV files in `data/`:
