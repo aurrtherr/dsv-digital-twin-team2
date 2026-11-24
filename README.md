@@ -134,6 +134,24 @@ The port was checked against `prototype_archive/twin.html`:
 
 For the team to check progress: **https://aurrtherr.github.io/dsv-digital-twin-team2/**
 
+### Logging in
+
+The app opens on a log-in screen. Each demo account opens the app as one role:
+
+| Name | Password | Opens as |
+|---|---|---|
+| Aisha | `inboundsupervisor` | Inbound supervisor |
+| John | `outboundsupervisor` | Outbound supervisor |
+| Mei | `planner` | Planner |
+| Raj | `operationsmanager` | Operations manager |
+| Sam | `dataowner` | Data owner |
+
+- Names ignore capital letters. The log-in is remembered in your browser until you press **Log out** in the header.
+- The same accounts work when you run the app on your own computer.
+- This is a prototype log-in, not real security: the accounts are in the public code (`backend/app/demo_users.py`). Do not use real passwords. To add or rename an account, edit that file.
+
+### How it is hosted
+
 - **Frontend** is on GitHub Pages. `.github/workflows/pages.yml` builds `frontend/` and publishes it every time something is merged into `main`, so the link always shows the latest `main`.
 - **Backend** is on Render's free plan, set up from `render.yaml`. GitHub Pages can only host static files, so the Python backend has to run somewhere else. The frontend finds it through the repo variable `VITE_API_BASE` (Settings → Secrets and variables → Actions → Variables).
 - The free backend goes to sleep after about 15 minutes with no use. The first load after that takes about a minute, so open the link early before a demo.

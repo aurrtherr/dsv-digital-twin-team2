@@ -67,6 +67,21 @@ def whatif(wi: int = 20) -> dict:
     return svc.get_whatif(wi)
 
 
+# ---------------------------------------------------------------- demo log-in
+class LoginIn(BaseModel):
+    name: str
+    password: str
+
+
+@app.post("/api/login")
+def login(b: LoginIn) -> dict:
+    from .demo_users import check_login
+    user = check_login(b.name, b.password)
+    if user is None:
+        raise HTTPException(status_code=401, detail="Name or password not recognised.")
+    return user
+
+
 # ---------------------------------------------------------------- actions
 class Base(BaseModel):
     t: int
