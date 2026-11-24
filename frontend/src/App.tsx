@@ -5,6 +5,7 @@ import { AppCtx, type App as AppT, type UiState } from './ctx';
 import type { AsnDetail, Card, Frame, Meta, OrderDetail } from './types';
 import { dayOf, hhmm, when } from './format';
 import { Timeline } from './components/Timeline';
+import { WakeUp } from './components/WakeUp';
 import { ApproveDialog, AsnDialog, DismissDialog, EarlierDialog, NewTaskDialog, OrderDialog, RangeDialog } from './components/Dialogs';
 import Shift from './views/Shift';
 import Outbound from './views/Outbound';
@@ -120,7 +121,7 @@ export default function App() {
   }, [meta, frame, ui, set, act, showToast]);
 
   if (err && !frame) return <div style={{ padding: 40, fontFamily: 'system-ui' }}><h2>Cannot reach the twin backend</h2><p>{err}</p><p>Start it with <code>uvicorn app.main:app --port 8000</code> in the <code>backend</code> folder, then reload.</p></div>;
-  if (!app || !meta || !frame) return <div style={{ padding: 40, fontFamily: 'system-ui' }}>Loading the twin…</div>;
+  if (!app || !meta || !frame) return <WakeUp />;
 
   const mode = frame.mode, now = frame.t, vt = frame.at == null ? now : frame.at;
   const setAt = (t: number | null) => set({ at: t == null || t === ui.t ? null : t });
