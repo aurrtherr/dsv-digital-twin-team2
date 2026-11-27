@@ -32,4 +32,5 @@ export const api = {
   lookup: (q: string) => req<{ kind: 'order' | 'asn' | null; i?: number; msg?: string }>(`/api/lookup?${qs({ q })}`),
   whatif: (wi: number) => req<any>(`/api/whatif?wi=${wi}`),
   act: (name: string, body: Record<string, unknown>) => req<ActionResult>(`/api/actions/${name}`, { method: 'POST', body: JSON.stringify(body) }),
+  login: (name: string, password: string) => req<{ name: string; role: string }>('/api/login', { method: 'POST', body: JSON.stringify({ name, password }) }),
 };

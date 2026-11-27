@@ -134,6 +134,24 @@ The port was checked against `prototype_archive/twin.html`:
 
 For the team to check progress: **https://aurrtherr.github.io/dsv-digital-twin-team2/**
 
+### Logging in
+
+The app opens on a log-in screen. Each demo account opens the app as one role:
+
+| Name | Password | Opens as |
+|---|---|---|
+| Aisha | `inboundsupervisor` | Inbound supervisor |
+| John | `outboundsupervisor` | Outbound supervisor |
+| Mei | `planner` | Planner |
+| Raj | `operationsmanager` | Operations manager |
+| Sam | `dataowner` | Data owner |
+
+- Names ignore capital letters. The log-in is remembered in your browser until you press **Log out** in the header.
+- The same accounts work when you run the app on your own computer.
+- This is a prototype log-in, not real security: the accounts are in the public code (`backend/app/demo_users.py`). Do not use real passwords. To add or rename an account, edit that file.
+
+### How it is hosted
+
 - **Frontend** is on GitHub Pages. `.github/workflows/pages.yml` builds `frontend/` and publishes it every time something is merged into `main`, so the link always shows the latest `main`.
 - **Backend** is on Render's free plan, set up from `render.yaml`. GitHub Pages can only host static files, so the Python backend has to run somewhere else. The frontend finds it through the repo variable `VITE_API_BASE` (Settings → Secrets and variables → Actions → Variables).
 - The free backend goes to sleep after about 15 minutes with no use. The first load after that takes about a minute, so open the link early before a demo.
@@ -144,6 +162,25 @@ One-time setup (only the repo owner needs to do this):
 2. On GitHub: add the repo variable `VITE_API_BASE` = that URL, with no slash at the end.
 3. On GitHub: Settings → Pages → Source → **GitHub Actions**.
 4. Merge anything into `main`, or run the workflow by hand from the Actions tab.
+
+### Updating the online demo
+
+The online demo always shows what is on `main`. To update it, get your change merged into `main`; there is nothing else to deploy.
+
+1. Push your branch and open a pull request (see *New to the repo? Start here*).
+2. Merge the pull request into `main`.
+3. Both halves update by themselves:
+   - **Frontend:** GitHub Actions rebuilds it. Watch the **Actions** tab: when "Deploy frontend to GitHub Pages" turns green (about 2 minutes), the site is updated.
+   - **Backend:** Render sees the new commit on `main` and redeploys it (about 2–5 minutes). Progress is on the Render dashboard → `dsv-twin-api` → **Events**.
+4. Open the demo link and hard-refresh (**Cmd + Shift + R** on Mac, **Ctrl + Shift + R** on Windows) so your browser does not show the old version.
+
+If it did not update:
+- **Actions run is red:** open it to see the error. It is usually a TypeScript error, so run `cd frontend && npm run build` locally, fix it, and merge the fix.
+- **Frontend to redeploy without a new commit:** Actions tab → **Deploy frontend to GitHub Pages** → **Run workflow** → branch `main`.
+- **Backend to redeploy by hand** (only the repo owner can do this): Render dashboard → `dsv-twin-api` → **Manual Deploy** → **Deploy latest commit**.
+- **Backend URL changed:** update the repo variable `VITE_API_BASE`, then run the frontend workflow again.
+
+Redeploying the backend clears tasks, approvals and limit changes made on the online demo.
 
 ## Running the notebooks
 

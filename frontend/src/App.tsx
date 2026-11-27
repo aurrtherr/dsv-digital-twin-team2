@@ -5,6 +5,8 @@ import { AppCtx, type App as AppT, type UiState } from './ctx';
 import type { AsnDetail, Card, Frame, Meta, OrderDetail } from './types';
 import { dayOf, hhmm, when } from './format';
 import { Timeline } from './components/Timeline';
+import { WakeUp } from './components/WakeUp';
+// LOGIN-OFF (turned off while developing; search LOGIN-OFF to turn back on): import { Login, type User } from './components/Login';
 import { ApproveDialog, AsnDialog, DismissDialog, EarlierDialog, NewTaskDialog, OrderDialog, RangeDialog } from './components/Dialogs';
 import Shift from './views/Shift';
 import Outbound from './views/Outbound';
@@ -30,6 +32,10 @@ const DEFAULT_UI: UiState = {
   navOpen: {}, othersOpen: false, obBy: 'lane', obSel: null, obCap: 15, arSel: null, traceQ: '0000031762', trWk: false, wi: 20,
 };
 const loadUi = (): UiState => { try { return { ...DEFAULT_UI, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch { return DEFAULT_UI; } };
+// Demo log-in: who is signed in on this browser (see backend/app/demo_users.py).
+// LOGIN-OFF: const USER_KEY = 'whtwin.user.v1';
+// LOGIN-OFF: const loadUser = (): User | null => { try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch { return null; } };
+// LOGIN-OFF: const saveUser = (u: User | null) => { try { if (u) localStorage.setItem(USER_KEY, JSON.stringify(u)); else localStorage.removeItem(USER_KEY); } catch { /* storage off */ } };
 
 type Dlg =
   | { kind: 'approve'; c: Card } | { kind: 'dismiss'; c: Card } | { kind: 'task' } | { kind: 'earlier' } | { kind: 'range' }
@@ -40,6 +46,7 @@ export default function App() {
   const [frame, setFrame] = useState<Frame | null>(null);
   const [err, setErr] = useState<string>('');
   const [ui, setUi] = useState<UiState>(loadUi);
+  // LOGIN-OFF: const [user, setUser] = useState<User | null>(loadUser);
   const [rev, setRev] = useState(0); // bump to refetch after an action
   const [dlg, setDlg] = useState<Dlg>(null);
   const [toast, setToast] = useState<{ msg: string; undo: Record<string, unknown> | null } | null>(null);
@@ -119,8 +126,10 @@ export default function App() {
     };
   }, [meta, frame, ui, set, act, showToast]);
 
+  // LOGIN-OFF: if (!user) return <Login onLogin={u => { saveUser(u); setUser(u); setToast(null); set({ role: u.role, view: 'shift', at: null }); }} />;
+  // LOGIN-OFF: const logout = () => { saveUser(null); setUser(null); setDlg(null); setToast(null); };
   if (err && !frame) return <div style={{ padding: 40, fontFamily: 'system-ui' }}><h2>Cannot reach the twin backend</h2><p>{err}</p><p>Start it with <code>uvicorn app.main:app --port 8000</code> in the <code>backend</code> folder, then reload.</p></div>;
-  if (!app || !meta || !frame) return <div style={{ padding: 40, fontFamily: 'system-ui' }}>Loading the twin…</div>;
+  if (!app || !meta || !frame) return <WakeUp />;
 
   const mode = frame.mode, now = frame.t, vt = frame.at == null ? now : frame.at;
   const setAt = (t: number | null) => set({ at: t == null || t === ui.t ? null : t });
@@ -158,6 +167,8 @@ export default function App() {
 
       <header className="top">
         <div className="top-row">
+          {/* LOGIN-OFF: when turning login back on, delete the next line and uncomment the one after it.
+          <div className="brand"><b>Warehouse Twin</b><span>{user.name} · {meta.roles[frame.role].name} · Singapore · <button type="button" className="tl-btn" onClick={logout}>Log out</button></span></div> */}
           <div className="brand"><b>Warehouse Twin</b><span>{meta.roles[frame.role].name} · Singapore</span></div>
           <div className="tl-head">
             <span className={`tl-mode ${mode}`}>{mode === 'past' ? 'Past · read only' : mode === 'next' ? 'Projection' : 'Now'}</span>
