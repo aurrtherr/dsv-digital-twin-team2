@@ -44,10 +44,10 @@ Status: *To do*, *Doing*, *Done*, *Waiting for DSV* (cannot finish until DSV ans
 | I1 | Hourly receiving-queue chart (ASNs docked, not yet received, hour by hour) | F5 | Review notebook §2.3 *Receiving work: dock states, waiting time and P90* (already works there: tick "Show hourly receiving queue trend (24h)"; not in the app yet) | alicia | To do |
 | I2 | Count "lines per ASN" on the 3-part key (ASN# + Ref Line# + Functional Packing), not Ref Line# alone | F14, F5 | Review notebook §2.3 ("ASN lines" column still counts Ref Line# only, see the 🟨 note) and §2 setup code (`NOT CHANGED, TO DO`) | Alicia | To do |
 | I3 | Build rule DQ-04 "Contents mismatch" from the Milkrun content check (99.1% of 3,242 linked orders reconcile, 28 do not) | F14, F9, F10 | Review notebook §7.1 *Milk run quantity reconciliation by SKU and lot* | | Decide first |
-| I4 | Stage timing: median and P90 for dock → receipt → order → handover | F7 | Review notebook §3.1 *Elapsed process timing for linked milk run units* | | To do |
+| I4 | Stage timing: median and P90 for dock → receipt → order → handover | F7 | Review notebook §3.1 *Elapsed process timing for linked milk run units* |Ming Kai | To do |
 | I5 | Hourly event activity chart and a 3-hour "recent events" list | F1 or F3 | Review notebook §4 *Event activity and recent history* | | Decide first |
-| I6 | Switch between lateness definitions A–D (23.4%, 4.1%, 58.5%, 21.5%) | F7, F11 | Review notebook §6 *Handover performance and group analysis*; DSV Round 2 Q1 | | Waiting for DSV |
-| I7 | Forwarder × country matrix of overdue orders | F4 or F7 | Review notebook §6 *Handover performance and group analysis* | | To do |
+| I6 | Switch between lateness definitions A–D (23.4%, 4.1%, 58.5%, 21.5%) | F7, F11 | Review notebook §6 *Handover performance and group analysis*; DSV Round 2 Q1 | Ming Kai | Waiting for DSV |
+| I7 | Forwarder × country matrix of overdue orders | F4 or F7 | Review notebook §6 *Handover performance and group analysis* | Ming Kai | To do |
 | I8 | Earlier-handover what-if next to the staffing what-if | F8 | Review notebook §9 *Historical what-if: earlier handover and readiness* |Ming Kai | Waiting for review |
 | I9 | Show a SKU + lot match as a clearly labelled "possible link" for non-Milkrun flows (never as an exact trace) | F6 | Review notebook §5.1 *Optional experiment: suggesting an ASN from SKU, lot and receipt time* | | Decide first |
 | I10 | Shipped-quantity totals, counting Qty Shipped once per order line | F4 | Review notebook §2.1 *Outbound shipping activity and outstanding work*; Issue 1 (currently option D: no units total); DSV Round 2 Q5 | | Waiting for DSV |
