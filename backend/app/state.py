@@ -17,7 +17,7 @@ from pathlib import Path
 STATE_FILE = Path(os.environ.get("TWIN_STATE_FILE", Path(__file__).parent.parent / "state.json"))
 
 CFG_DEF = {"cut": 18, "created": 12, "fwd": 20, "ctry": 50, "milk": 120, "hvWait": 4,
-           "ontime": 70, "fwdLate": 90, "fwdMin": 30, "zone": 25, "load": 1.25}
+           "ontime": 70, "fwdLate": 90, "fwdMin": 30, "zone": 25, "load": 1.25, "wage": 2200}
 # key, label, unit, used by, min, max, step
 CFG_META = [
     ["cut", "Escalation cut-off on the planned day", "h (24 h clock)", "OUT-03", 12, 23, 1],
@@ -31,6 +31,7 @@ CFG_META = [
     ["fwdMin", "Minimum orders for that forwarder review", "orders", "MGR-02", 10, 200, 10],
     ["zone", "Share of receipts to SEQ / HBS zones", "%", "MGR-03", 10, 60, 5],
     ["load", "Workload vs the week average", "× average", "MGR-04 and KPIs", 1.05, 2, 0.05],
+    ["wage", "Basic monthly wage (placeholder)", "S$ / month", "Staffing what-if", 1000, 10000, 50],
 ]
 
 
