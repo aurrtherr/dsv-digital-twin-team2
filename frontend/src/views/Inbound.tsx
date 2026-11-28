@@ -3,6 +3,7 @@ import { KpiGrid } from '../components/Kpi';
 import { PageCardsView } from '../components/Card';
 import { HBarsView, Rich } from '../components/common';
 import { LookupForm, ProjPanelView } from '../components/OrderTable';
+import { useState } from 'react';
 
 function AsnBtn({ i, asn, hv }: { i: number; asn: string; hv: boolean }) {
   const { openAsn } = useApp();
@@ -30,6 +31,41 @@ function Row({ r }: { r: any }) {
   );
 }
 
+// I1: receiving-queue bars with a hover box showing the exact count
+function QueueChart({ spec }: { spec: any }) {
+  const [hov, setHov] = useState<number | null>(null);
+  const W = 640, H = 240, L = 40, R = 10, T = 18, B = 42;
+  const bw = (W - L - R) / Math.max(spec.rows.length, 1);
+  const y = (v: number) => T + (H - T - B) * (1 - v / spec.max);
+  const tip = hov === null ? null : spec.rows[hov];
+  const tw = 190, th = 42;
+  const tx = hov === null ? 0 : Math.min(Math.max(L + hov * bw + bw / 2 - tw / 2, L), W - R - tw);
+  const ty = tip ? Math.max(0, y(tip.vals[0]) - th - 6) : 0;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label={spec.label} style={{ maxHeight: 300 }} onMouseLeave={() => setHov(null)}>
+      {spec.grid.map(([g, lab]: [number, string]) => (
+        <g key={g}><line x1={L} x2={W - R} y1={y(g)} y2={y(g)} stroke="var(--line)" /><text x={L - 6} y={y(g) + 4} fontSize="12.5" textAnchor="end" fill="var(--muted)">{lab}</text></g>
+      ))}
+      {spec.rows.map((r: any, k: number) => (
+        <g key={k} onMouseEnter={() => setHov(k)}>
+          <rect x={L + k * bw} y={T} width={bw} height={H - T - B} fill="transparent" />
+          <rect x={L + k * bw + bw * 0.15} y={y(r.vals[0])} width={bw * 0.7} height={Math.max(0, y(0) - y(r.vals[0]))} rx="3"
+            fill="var(--bar)" opacity={hov === null || hov === k ? 1 : 0.4} />
+          {r.label && <text x={L + k * bw + bw / 2} y={H - B + 16} fontSize="13" textAnchor="middle" fill="var(--muted)">{r.label}</text>}
+          {r.sub && <text x={L + k * bw + bw / 2} y={H - B + 31} fontSize="12" textAnchor="middle" fill="var(--muted)">{r.sub}</text>}
+        </g>
+      ))}
+      {tip && (
+        <g pointerEvents="none">
+          <rect x={tx} y={ty} width={tw} height={th} rx="6" fill="var(--ink)" />
+          <text x={tx + 10} y={ty + 17} fontSize="13" fontWeight="700" fill="var(--surface)">{tip.vals[0]} ASNs waiting</text>
+          <text x={tx + 10} y={ty + 33} fontSize="12" fill="var(--surface)">{tip.time}</text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 export default function Inbound() {
   const { frame } = useApp();
   const d = frame.data;
@@ -50,6 +86,10 @@ export default function Inbound() {
                   <div className="tbl-wrap"><table><tbody>{d.rows.slice(10).map((r: any) => <Row key={r.i} r={r} />)}</tbody></table></div></details>}
               </>
             ) : <div className="empty">Nothing waiting at the dock.</div>}
+          </section>
+          <section className="panel"><h2>Receiving queue, last 24 h <span className="muted small">({d.queueRange})</span></h2>
+            <p className="sec-sub">Deliveries docked but not yet received, counted every hour. Rising = work building up; falling = the queue is clearing.</p>
+            <QueueChart spec={d.queue} />
           </section>
           <section className="panel"><h2>Received in the last 24 h <span className="muted small">({d.got} deliveries)</span></h2>
             <HBarsView h={d.byType} />
