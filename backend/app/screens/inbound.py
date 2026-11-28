@@ -6,7 +6,7 @@ import numpy as np
 
 from ..engine import Ctx, DQ_WAIT, Snap
 from ..fmt import day_label, day_n, day_of, fmt, hhmm, hrs, js_num, when
-from .common import hbars, page_cards, page_kpis, proj_panel, R
+from .common import bars_spec, hbars, page_cards, page_kpis, proj_panel, R
 
 
 def v_inbound(ctx: Ctx, snap: Snap, p: dict) -> dict:
@@ -39,9 +39,25 @@ def v_inbound(ctx: Ctx, snap: Snap, p: dict) -> dict:
     rr = [r for r in rr if r[1]]
     lst = [{"i": i, "asn": D.asns[i][0], "hv": bool(D.hv[i]), "ref": D.asns[i][5] or "–", "type": D.types[D.a_type[i]],
             "docked": when(int(D.a_dock[i])) if D.a_has_dock[i] else "—", "received": when(int(D.a_gr[i])), "lines": D.asns[i][4]} for i in got[:60]]
+        # I1: hourly receiving queue - ASNs docked but not yet received, each hour for the last 24 h
+    
+    qrows = []
+    for k in range(24, -1, -1):
+        m = t - k * 60
+        n = int((D.a_has_dock & (D.a_dock <= m) & (m < D.a_gr)).sum())
+        row = {"label": hhmm(m) if k % 4 == 0 else "", "vals": [n], "colors": ["var(--bar)"],
+               "tips": [f"{n} ASNs waiting at {when(m)}"], "time": when(m), "faint": False}
+        if k in (24, 0):
+            row["sub"] = day_n(day_of(m))
+        qrows.append(row)
+
+    qtop = max([r["vals"][0] for r in qrows] + [5])
+    step = 5 if qtop <= 25 else 10 if qtop <= 60 else 20
+    queue = bars_spec(qrows, "ASNs docked, not yet received, each hour", qtop * 1.15,
+                      list(range(0, qtop + step, step)), str)
     return {
         "lead": lead, "proj": proj_panel(ctx, snap, "inbound"), "kpis": page_kpis(ctx, snap, ["dock", "dockOver", "linesIn", "stuck"], "inbound"),
-        "rows": rows, "got": fmt(len(got)),
+        "rows": rows, "queue": queue, "queueRange": f"{when(t - 1440)} to {when(t)}", "got": fmt(len(got)),
         "byType": hbars([[f"{r[0]} · usual {js_num(D.usual[r[0]])} h", r[1]] for r in rr], max([r[1] for r in rr] + [1]), "acc"),
         "list": lst, "cards": page_cards(ctx, snap, lambda c: c["rule"].startswith("IN") or c["rule"] == "DQ-03", "Inbound cards"),
         "foot": f"No shipment ref shown = DSV’s report has none for that delivery (usual for Normal deliveries). {fmt(D.dq['asns_no_dock'])} ASNs have no dock time and never show here (DQ-07).",

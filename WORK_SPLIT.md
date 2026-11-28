@@ -41,7 +41,7 @@ Status: *To do*, *Doing*, *Done*, *Waiting for DSV* (cannot finish until DSV ans
 
 | # | Improvement | Feature | Where it comes from | Person | Status |
 |---|---|---|---|---|---|
-| I1 | Hourly receiving-queue chart (ASNs docked, not yet received, hour by hour) | F5 | Review notebook §2.3 *Receiving work: dock states, waiting time and P90* (already works there: tick "Show hourly receiving queue trend (24h)"; not in the app yet) | alicia | To do |
+| I1 | Hourly receiving-queue chart (ASNs docked, not yet received, hour by hour) | F5 | Review notebook §2.3 *Receiving work: dock states, waiting time and P90* (already works there: tick "Show hourly receiving queue trend (24h)"; not in the app yet) | alicia | Done |
 | I2 | Count "lines per ASN" on the 3-part key (ASN# + Ref Line# + Functional Packing), not Ref Line# alone | F14, F5 | Review notebook §2.3 ("ASN lines" column still counts Ref Line# only, see the 🟨 note) and §2 setup code (`NOT CHANGED, TO DO`) | Alicia | To do |
 | I3 | Build rule DQ-04 "Contents mismatch" from the Milkrun content check (99.1% of 3,242 linked orders reconcile, 28 do not) | F14, F9, F10 | Review notebook §7.1 *Milk run quantity reconciliation by SKU and lot* | | Decide first |
 | I4 | Stage timing: median and P90 for dock → receipt → order → handover | F7 | Review notebook §3.1 *Elapsed process timing for linked milk run units* |Ming Kai | To do |
